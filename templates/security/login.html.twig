@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+	<div class="container-lg">
+		<div class="row h100 justify-content-center align-content-center">
+			<div class="col-md-7 col-lg-5">
+				<div class="shadow-lg p-4 p-md-5">
+					<h3 class="mb-4">Connexion</h3>
+					<form method="post">
+						{% if error %}
+							<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						{% endif %}
+						<div class="form-group mt-3">
+							<label class="form-label" for="inputEmail">Email</label>
+							<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+						</div>
+						<div class="form-group mt-3">
+							<label class="form-label" for="inputPassword">Mot de passe</label>
+							<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+						</div>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+						<div class="form-group d-md-flex mt-2">
+							<div class="w-50 text-left">
+								<label class="checkbox-wrap checkbox-primary mb-0">Se souvenir de moi
+									<input type="checkbox" name="_remember_me">
+								</label>
+							</div>
+						</div>
+
+
+						<div class="form-group my-2">
+							<button type="submit" class="form-control btn btn-primary rounded submit px-3">Connexion</button>
+						</div>
+					</form>
+					<p class="text-center mt-2">Pas encore inscris ?
+						<a href="{{path('app_register')}}">Inscription</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

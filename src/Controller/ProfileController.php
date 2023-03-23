@@ -36,6 +36,15 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //upload
+            /** @var UploadedFile */
+            $imgFile = $form->get('imgFile')->getData();
+            if ($imgFile) {
+                $fileName = uniqid() . '.' . $imgFile->guessExtension();
+                $imgFile->move($this->getParameter('profile_uploads'), $fileName);
+                //stocker le nom du fichier dans la BDD
+                $currentUser->setImg($fileName);
+            }
             $manager->persist($currentUser);
             $manager->flush();
 

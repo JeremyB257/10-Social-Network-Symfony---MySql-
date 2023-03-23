@@ -37,7 +37,7 @@ class AppFixtures extends Fixture
             $user->setEmail($faker->email())
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
                 ->setName($faker->firstName())
-                ->setImg('https://randomuser.me/api/portraits/women/' . rand(1, 99) . '.jpg')
+                ->setImg('random-user.png')
                 ->setBiography($faker->text());
 
             $users[] = $user;

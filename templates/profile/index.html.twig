@@ -53,14 +53,20 @@
 						<div class="col-1 ps-3 pt-2">
 							<img src="{{asset('img/' ~ post.user.img)}}" class="profileNavbarImg" alt="...">
 						</div>
-						<div class="col-11 px-2">
+						<div class="col-11 px-2 d-flex">
 							<div class="card-body">
 								<h5 class="card-title">{{post.user.name}}
 									<small class="text-muted fs-6 fw-light">{{ post.createdat | ago }}</small>
 								</h5>
-
 								<p class="card-text">{{post.content}}</p>
 							</div>
+							{% if  app.user == user %}
+								<div class="card-body d-flex align-items-center justify-content-end">
+									<a class="btn" href="{{path('post.delete', {id: post.id})}}">
+										<i class="fa-solid fa-trash"></i>
+									</a>
+								</div>
+							{% endif %}
 						</div>
 					</div>
 				</div>

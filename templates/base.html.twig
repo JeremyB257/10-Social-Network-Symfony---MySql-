@@ -21,7 +21,7 @@
 	{% set route = app.request.get('_route') %}
 
 	<body class="h100">
-		<nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm">
+		<nav class="navbar navbar-expand-sm bg-white shadow-sm">
 			<div class="container-lg">
 				<a class="navbar-brand fw-bold" href="#">The Social Network</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,14 +41,19 @@
 						</li>
 
 					</ul>
-				</li>
 
-			</ul>
-			<ul class="navbar-nav mb-2 mb-sm-0">
-				<li class="nav-item">
-					<a class="nav-link fw-bold {{route == 'profile.index' ? 'active' : ''}}" href="#">Fiorella</a>
-				</li>
-			</ul>
-		</body>
+
+					<ul class="navbar-nav mb-2 mb-sm-0">
+						<li class="nav-item">
+							<a class="nav-link fw-bold {{route == 'profile.index' ? 'active' : ''}}" href="#"><img class='profileNavbarImg' src="{{asset(app.user.img)}}" alt="Utilisateur">{{app.user.name}}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</nav>
+		<main class="container-lg"> {% block body %}{% endblock %}
+			<p class="text-center">Tous droits réservés. The Social Network</p>
+		</main>
 	</body>
-</html></div></body></html></div></nav><main class="container-lg"> {% block body %}{% endblock %}<p class="text-center">Tous droits réservés. The Social Network</p></main></body></html>
+</html>

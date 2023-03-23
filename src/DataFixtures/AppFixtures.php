@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Post;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -29,13 +30,25 @@ class AppFixtures extends Fixture
             ->setName('Jerem');
 
         $manager->persist($admin);
-
-        for ($i = 0; $i < 10; $i++) {
+        $users = [];
+        $users[] = $admin;
+        for ($i = 0; $i < 5; $i++) {
             $user = new User();
             $user->setEmail($faker->email())
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
-                ->setName($faker->name());
+                ->setName($faker->firstName());
+            $users[] = $user;
             $manager->persist($user);
+        }
+
+        //Post
+        for ($i = 0; $i < 20; $i++) {
+            $post = new Post();
+            $post->setCreatedAt(new \DateTimeImmutable())
+                ->setContent($faker->text())
+                ->setUser($users[rand(0, 5)]);
+
+            $manager->persist($post);
         }
 
 

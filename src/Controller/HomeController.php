@@ -19,7 +19,7 @@ class HomeController extends AbstractController
         $limit = (int) $request->get('limit') | 10;
 
         return $this->render('home/index.html.twig', [
-            'posts' => $postRepo->findBy([], ['createdAt' => 'ASC'], $limit),
+            'posts' => $postRepo->findBy([], ['createdAt' => 'DESC'], $limit),
             'limit' => $limit
         ]);
     }

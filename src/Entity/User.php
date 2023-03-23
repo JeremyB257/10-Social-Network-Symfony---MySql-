@@ -21,6 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Email()]
+    #[Assert\NotBlank()]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -35,7 +36,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $birthday = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

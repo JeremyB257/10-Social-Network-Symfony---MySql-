@@ -36,6 +36,17 @@
 			{% endif %}
 		</div>
 		<div class="col-7 col-md-9">
+			{% if app.user == user %}
+				{{form_start(form)}}
+				{{form_label(form.content)}}
+				<div class="d-flex mb-3 align-items-center">
+					{{form_widget(form.content)}}
+					{{form_errors(form.content)}}
+					<button class="btn btn-primary ms-3">Publier</button>
+				</div>
+				{{form_end(form)}}
+			{% endif %}
+
 			{% for post in posts %}
 				<div class="card mb-3">
 					<div class="row g-0">

@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Entity\User;
+use App\Form\PostType;
 use App\Form\UserType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,14 +19,26 @@ class ProfileController extends AbstractController
 {
     #[Route('/profile/{id}', name: 'profile.index')]
     #[IsGranted('ROLE_USER')]
-    public function index(Request $request, User $currentUser, PostRepository $postRepo): Response
+    public function index(Request $request, User $currentUser, PostRepository $postRepo, EntityManagerInterface $manager): Response
     {
+        $post = new Post();
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post->setUser($this->getUser());
+            $manager->persist($post);
+            $manager->flush();
+
+            $this->redirectToRoute('profile.index', ['id' => $currentUser->getId()]);
+        }
         $limit = (int) $request->get('limit') | 10;
 
         return $this->render('profile/index.html.twig', [
-            'posts' => $postRepo->findBy(['user' => $currentUser], ['createdAt' => 'ASC'], $limit),
+            'posts' => $postRepo->findBy(['user' => $currentUser], ['createdAt' => 'DESC'], $limit),
             'limit' => $limit,
-            'user' => $currentUser
+            'user' => $currentUser,
+            'form' => $form
         ]);
     }
 

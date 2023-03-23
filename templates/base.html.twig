@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			{% block title %}Welcome!
+			{% block title %}The SocialNetwork
 			{% endblock %}
 		</title>
 		<link
@@ -18,7 +18,37 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body>
-		{% block body %}{% endblock %}
+	{% set route = app.request.get('_route') %}
+
+	<body class="h100">
+		<nav class="navbar navbar-expand-sm bg-body-tertiary shadow-sm">
+			<div class="container-lg">
+				<a class="navbar-brand fw-bold" href="#">The Social Network</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-sm-0">
+						<li class="nav-item">
+							<a class="nav-link fw-bold {{route == 'home.index' ? 'active' : ''}}" aria-current="page" href="#">
+								<i class="fa-solid fa-house"></i>
+								Accueil</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link fw-bold  {{route == 'users.index' ? 'active' : ''}}" href="#">
+								<i class="fa-solid fa-users"></i>
+								Membres</a>
+						</li>
+
+					</ul>
+				</li>
+
+			</ul>
+			<ul class="navbar-nav mb-2 mb-sm-0">
+				<li class="nav-item">
+					<a class="nav-link fw-bold {{route == 'profile.index' ? 'active' : ''}}" href="#">Fiorella</a>
+				</li>
+			</ul>
+		</body>
 	</body>
-</html>
+</html></div></body></html></div></nav><main class="container-lg"> {% block body %}{% endblock %}<p class="text-center">Tous droits réservés. The Social Network</p></main></body></html>

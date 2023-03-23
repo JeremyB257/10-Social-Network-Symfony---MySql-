@@ -36,7 +36,8 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setEmail($faker->email())
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
-                ->setName($faker->firstName());
+                ->setName($faker->firstName())
+                ->setImg('https://randomuser.me/api/portraits/women/' . rand(1, 99) . '.jpg');
             $users[] = $user;
             $manager->persist($user);
         }

@@ -10,7 +10,7 @@
 	<div class="row mt-3">
 		<div class="col-5 col-md-3">
 			<div class="card">
-				<img src="{{asset('img/' ~ app.user.img)}}" alt="" class="w-100">
+				<img src="{{asset('img/' ~ user.img)}}" alt="" class="w-100">
 				<div class="card-body">
 					<h5 class="card-title">{{user.name}}</h5>
 					{% if user.birthday %}
@@ -26,14 +26,18 @@
 						{{user.biography}}</li>
 				</ul>
 			</div>
-			<div class="text-center">
-				<a href="{{path('profile.edit', {id: user.id})}}" class="btn btn-primary mt-2">Modifier</a>
-				<a href="{{path('profile.delete', {id: user.id})}}" class="btn btn-danger mt-2">Supprimer</a>
-			</div>
+			{% if app.user == user %}
+
+				<div class="text-center">
+					<a href="{{path('profile.edit', {id: user.id})}}" class="btn btn-primary mt-2">Modifier</a>
+					<a href="{{path('app_logout')}}" class="btn btn-warning mt-2">Deconnexion</a>
+
+				</div>
+			{% endif %}
 		</div>
 		<div class="col-7 col-md-9">
 			{% for post in posts %}
-				<div class="card mb-3" style="max-width: 540px;">
+				<div class="card mb-3">
 					<div class="row g-0">
 						<div class="col-1 ps-3 pt-2">
 							<img src="{{asset('img/' ~ post.user.img)}}" class="profileNavbarImg" alt="...">

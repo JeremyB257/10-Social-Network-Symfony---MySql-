@@ -16,7 +16,9 @@ class UserType extends AbstractType
         $builder
             ->add('name')
             ->add('pseudo')
-            ->add('birthday')
+            ->add('birthday', null, [
+                'years' => range(date('Y'), 1900)
+            ])
             ->add('biography')
             ->add('imgFile', FileType::class, [
                 'required' => false,

@@ -11,11 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProfileController extends AbstractController
 {
     #[Route('/profile/{id}', name: 'profile.index')]
-    #[Security("is_granted('ROLE_USER') and user === currentUser")]
+    #[IsGranted('ROLE_USER')]
     public function index(Request $request, User $currentUser, PostRepository $postRepo): Response
     {
         $limit = (int) $request->get('limit') | 10;

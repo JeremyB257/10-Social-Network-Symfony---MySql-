@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{parent()}}
+	- Profile
+{% endblock %}
+
+{% block body %}
+	<div class="row mt-3">
+		<div class="col-5 col-md-3">
+			<div class="card">
+				<img src="{{asset('img/' ~ app.user.img)}}" alt="" class="w-100">
+				<div class="card-body">
+					<h5 class="card-title">{{user.name}}</h5>
+					{% if user.birthday %}
+						<p class="card-text">{{user.birthday | date('d/m/Y')}}
+							({{'now' | date('Y') - user.birthday | date('Y')}}
+							ans)</p>
+					{% endif %}
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Email:
+						{{user.email}}</li>
+					<li class="list-group-item">Biographie:
+						{{user.biography}}</li>
+				</ul>
+			</div>
+			<div class="text-center">
+				<a href="{{path('app_logout')}}" class="btn btn-warning mt-2">Deconnexion</a>
+				<a href="{{path('profile.delete', {id: user.id})}}" class="btn btn-danger mt-2">Supprimer</a>
+			</div>
+		</div>
+		<div class="col-7 col-md-9">
+			{{form_start(form)}}
+			{{form_row(form.name)}}
+			{{form_row(form.pseudo)}}
+			{{form_row(form.birthday)}}
+			{{form_row(form.biography)}}
+			{{form_row(form.imgFile)}}
+			<button class="btn btn-primary">Envoyer</button>
+			{{form_end(form)}}
+		</div>
+	</div>
+
+{% endblock %}

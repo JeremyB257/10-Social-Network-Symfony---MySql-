@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $biography = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $img = './img/random-user.png';
+    private ?string $img = 'random-user.png';
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pseudo = null;

@@ -37,13 +37,15 @@ class AppFixtures extends Fixture
             $user->setEmail($faker->email())
                 ->setPassword($this->hasher->hashPassword($user, 'password'))
                 ->setName($faker->firstName())
-                ->setImg('https://randomuser.me/api/portraits/women/' . rand(1, 99) . '.jpg');
+                ->setImg('random-user.png')
+                ->setBiography($faker->text());
+
             $users[] = $user;
             $manager->persist($user);
         }
 
         //Post
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $post = new Post();
             $post->setCreatedAt(new \DateTimeImmutable())
                 ->setContent($faker->text())

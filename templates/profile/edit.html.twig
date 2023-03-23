@@ -6,7 +6,6 @@
 {% endblock %}
 
 {% block body %}
-
 	<div class="row mt-3">
 		<div class="col-5 col-md-3">
 			<div class="card">
@@ -14,9 +13,8 @@
 				<div class="card-body">
 					<h5 class="card-title">{{user.name}}</h5>
 					{% if user.birthday %}
-						<p class="card-text">{{user.birthday | date('d/m/Y')}}
-							({{'now' | date('Y') - user.birthday | date('Y')}}
-							ans)</p>
+						<p class="card-text">{{user.birthday | date('d/m/Y')}}({{user.birthday | ago}}
+							)</p>
 					{% endif %}
 				</div>
 				<ul class="list-group list-group-flush">
@@ -32,30 +30,15 @@
 			</div>
 		</div>
 		<div class="col-7 col-md-9">
-			{% for post in posts %}
-				<div class="card mb-3" style="max-width: 540px;">
-					<div class="row g-0">
-						<div class="col-1 ps-3 pt-2">
-							<img src="{{asset(post.user.img)}}" class="profileNavbarImg" alt="...">
-						</div>
-						<div class="col-11 px-2">
-							<div class="card-body">
-								<h5 class="card-title">{{post.user.name}}
-									<small class="text-muted fs-6 fw-light">{{ post.createdat | ago }}</small>
-								</h5>
-
-								<p class="card-text">{{post.content}}</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			{% endfor %}
+			{{form_start(form)}}
+			{{form_row(form.name)}}
+			{{form_row(form.pseudo)}}
+			{{form_row(form.birthday)}}
+			{{form_row(form.biography)}}
+			{{form_row(form.img)}}
+			<button class="btn btn-primary">Envoyer</button>
+			{{form_end(form)}}
 		</div>
-		{% if posts | length > 10 %}
-
-			<form class="text-center">
-				<button class="btn btn-primary" name="limit" value="{{limit + 10}}">Chargez plus</button>
-			</form>
-		{% endif %}
 	</div>
+
 {% endblock %}

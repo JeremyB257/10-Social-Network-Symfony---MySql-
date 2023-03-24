@@ -1,23 +1,27 @@
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
 .h100 {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 body {
-    background-color: #f3f4f6;
+  background-color: #f3f4f6;
 }
 
 .profileNavbarImg {
-    width: 35px;
-    border-radius: 50%;
-    margin-right: 10px;
+  width: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
-#user_biography{
-    height: 175px;
+#user_biography {
+  height: 175px;
 }
 
 .object-fit-cover {
-    object-fit: cover;
+  object-fit: cover;
+}
+
+i {
+  cursor: pointer;
 }

@@ -31,14 +31,30 @@
 										<i class="fa-solid fa-trash"></i>
 									</a>
 								</div>
+
 							{% endif %}
+						</div>
+						<div class="card-footer bg-transparent">
+
+							<form class="d-flex justify-content-between align-items-center" method="post" action={{path('comment.create', {id: post.id} )}}>
+								<div class="form-floating w-100">
+									<textarea class="form-control" placeholder="a" name="content"></textarea>
+									<label for="floatingTextarea">Commentaire</label>
+								</div>
+								<input type="hidden" name="postId" value="{{post.id}}">
+								<button class="btn btn-primary ms-3">
+									Publier</button>
+							</form>
+
+							<div {{ react_component('Comment', { comments: post.comments.toArray | serialize('json', { groups: 'group4'} ), currentuser: app.user.id } ) }}></div>
 						</div>
 					</div>
 				</div>
 			{% endfor %}
 		</div>
-		<form class="text-center">
-			<button class="btn btn-primary" name="limit" value="{{limit + 10}}">Chargez plus</button>
+		<form action="#loadMore" class="text-center">
+			<button id="loadMore" class="btn btn-primary" name="limit" value="{{limit + 10}}">Chargez plus</button>
 		</form>
 	</div>
+
 {% endblock %}

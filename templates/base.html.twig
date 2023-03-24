@@ -43,9 +43,14 @@
 					</ul>
 
 
-					<ul class="navbar-nav mb-2 mb-sm-0">
+					<ul class="navbar-nav mb-2 mb-sm-0 align-items-center">
 						<li class="nav-item">
 							<a class="nav-link fw-bold {{route == 'profile.index' ? 'active' : ''}}" href="{{path('profile.index', {id: app.user.id})}}"><img class='profileNavbarImg' src="{{asset('img/' ~ app.user.img)}}" alt="Utilisateur">{{app.user.name}}</a>
+						</li>
+						<li>
+							<a class="btn" href="{{path('app_logout')}}">
+								<i class="fa-solid fa-right-from-bracket"></i>
+							</a>
 						</li>
 					</ul>
 				</div>

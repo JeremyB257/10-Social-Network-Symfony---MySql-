@@ -40,15 +40,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank()]
+    #[Assert\Length(min: 2)]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(min: 20)]
     private ?string $biography = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $img = 'random-user.png';
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank()]
     private ?string $pseudo = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Post::class, orphanRemoval: true)]

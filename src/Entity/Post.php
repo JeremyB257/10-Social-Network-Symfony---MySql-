@@ -17,6 +17,7 @@ class Post
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank()]
+    #[Assert\Length(min: 10)]
     private ?string $content = null;
 
     #[ORM\Column]

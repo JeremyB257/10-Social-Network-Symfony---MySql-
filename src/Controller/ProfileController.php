@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class ProfileController extends AbstractController
 {
@@ -64,6 +65,8 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slugger = new AsciiSlugger();
+            $currentUser->setPseudo($slugger->slug($currentUser->getPseudo()));
             //upload
             /** @var UploadedFile */
             $imgFile = $form->get('imgFile')->getData();

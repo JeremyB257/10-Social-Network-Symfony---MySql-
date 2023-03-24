@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class ProfileController extends AbstractController
 {
@@ -30,7 +31,7 @@ class ProfileController extends AbstractController
             $manager->persist($post);
             $manager->flush();
 
-            $this->redirectToRoute('profile.index', ['id' => $currentUser->getId()]);
+            return $this->redirectToRoute('profile.index', ['id' => $currentUser->getId()]);
         }
         $limit = (int) $request->get('limit') | 10;
 
@@ -42,6 +43,19 @@ class ProfileController extends AbstractController
         ]);
     }
 
+    #[Route('/post/suppression/{id}', name: 'post.delete')]
+    #[Security("is_granted('ROLE_USER') and user === post.getUser()")]
+    public function deletePost(EntityManagerInterface $manager, Post $post): Response
+    {
+        $manager->remove($post);
+        $manager->flush();
+        /** @var \App\Entity\User $user */
+        $user = $this->getUser();
+
+        return $this->redirectToRoute('profile.index', ['id' => $user->getId()]);
+    }
+
+
     #[Route('/profile/edition/{id}', name: 'profile.edit')]
     #[Security("is_granted('ROLE_USER') and user === currentUser")]
     public function edit(Request $request, User $currentUser, EntityManagerInterface $manager): Response
@@ -51,6 +65,8 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slugger = new AsciiSlugger();
+            $currentUser->setPseudo($slugger->slug($currentUser->getPseudo()));
             //upload
             /** @var UploadedFile */
             $imgFile = $form->get('imgFile')->getData();
@@ -78,7 +94,7 @@ class ProfileController extends AbstractController
 
     #[Route('/profile/suppression/{id}', name: 'profile.delete')]
     #[Security("is_granted('ROLE_USER') and user === currentUser")]
-    public function delete(EntityManagerInterface $manager, User $currentUser): Response
+    public function deleteUser(EntityManagerInterface $manager, User $currentUser): Response
     {
         $manager->remove($currentUser);
         $manager->flush();

@@ -72,8 +72,7 @@
 				</div>
 			{% endfor %}
 		</div>
-		{% if posts | length > 10 %}
-
+		{% if posts | length >= 10 %}
 			<form class="text-center">
 				<button class="btn btn-primary" name="limit" value="{{limit + 10}}">Chargez plus</button>
 			</form>

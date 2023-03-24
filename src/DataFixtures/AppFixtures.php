@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -45,13 +46,25 @@ class AppFixtures extends Fixture
         }
 
         //Post
+        $posts = [];
         for ($i = 0; $i < 50; $i++) {
             $post = new Post();
             $post->setCreatedAt(new \DateTimeImmutable())
                 ->setContent($faker->text())
                 ->setUser($users[rand(0, 5)]);
-
+            $posts[] = $post;
             $manager->persist($post);
+        }
+
+        //Comment
+        for ($i = 0; $i < 50; $i++) {
+            $comment = new Comment();
+            $comment->setCreatedAt(new \DateTimeImmutable())
+                ->setContent($faker->text())
+                ->setUser($users[rand(0, 5)])
+                ->setPost($posts[rand(0, 49)]);
+
+            $manager->persist($comment);
         }
 
 

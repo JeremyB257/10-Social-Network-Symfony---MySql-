@@ -13,7 +13,8 @@ class PostType extends AbstractType
     {
         $builder
             ->add('content', null, [
-                'label' => 'Contenu'
+                'label' => 'Contenu',
+                'attr' => ['placeholder' => 'Contenu']
             ]);
     }
 

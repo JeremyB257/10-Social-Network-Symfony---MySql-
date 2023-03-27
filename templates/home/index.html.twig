@@ -24,6 +24,17 @@
 								</h5>
 
 								<p class="card-text">{{post.content}}</p>
+								{% if app.user in post.usersLike %}
+									<p class="card-text">
+										<i class="fa-solid fa-circle-heart"></i>
+										{{	post.usersLike | length }}
+									</p>
+								{% else %}
+									<p class="card-text">
+										<i class="fa-light fa-circle-heart"></i>
+										{{	post.usersLike | length }}
+									</p>
+								{% endif %}
 							</div>
 							{% if  app.user == post.user %}
 								<div class="card-body d-flex align-items-center justify-content-end">

@@ -32,10 +32,14 @@ class Post
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'likes')]
+    private Collection $usersLike;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->comments = new ArrayCollection();
+        $this->usersLike = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,6 +108,33 @@ class Post
             if ($comment->getPost() === $this) {
                 $comment->setPost(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsersLike(): Collection
+    {
+        return $this->usersLike;
+    }
+
+    public function addUsersLike(User $usersLike): self
+    {
+        if (!$this->usersLike->contains($usersLike)) {
+            $this->usersLike->add($usersLike);
+            $usersLike->addLike($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersLike(User $usersLike): self
+    {
+        if ($this->usersLike->removeElement($usersLike)) {
+            $usersLike->removeLike($this);
         }
 
         return $this;

@@ -64,10 +64,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'usersLike')]
+    private Collection $likes;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -256,6 +260,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $comment->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Post $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Post $like): self
+    {
+        $this->likes->removeElement($like);
 
         return $this;
     }

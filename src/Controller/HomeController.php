@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Repository\PostRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,19 +20,22 @@ class HomeController extends AbstractController
         $limit = (int) $request->get('limit') | 10;
         $posts = $postRepo->findBy([], ['createdAt' => 'DESC'], $limit);
 
-        for ($i = 0; $i <= count($posts[0]->getUsersLike()); $i++) {
-            if ($this->getUser() == $posts[0]->getUsersLike()[$i]) {
-
-                $userLike = true;
-            } else {
-
-                $userLike = false;
-            }
-            dump($userLike);
-        }
         return $this->render('home/index.html.twig', [
             'posts' => $posts,
             'limit' => $limit,
         ]);
+    }
+
+    #[Route('/like/{id}', name: 'home.like')]
+    public function like(Post $post): Response
+    {
+
+        return $this->redirectToRoute('home.index');
+    }
+    #[Route('/unlike/{id}', name: 'home.unlike')]
+    public function unlike(Post $post): Response
+    {
+
+        return $this->redirectToRoute('home.index');
     }
 }

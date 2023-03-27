@@ -18,7 +18,7 @@
 							<img src="{{asset('img/' ~ post.user.img)}}" class="profileNavbarImg" alt="...">
 						</div>
 						<div class="col-11 px-2 d-flex">
-							<div class="card-body">
+							<div class="card-body pb-1">
 								<h5 class="card-title">{{post.user.name}}
 									<small class="text-muted fs-6 fw-light">{{ post.createdat | ago }}</small>
 								</h5>
@@ -26,13 +26,17 @@
 								<p class="card-text">{{post.content}}</p>
 								{% if app.user in post.usersLike %}
 									<p class="card-text">
-										<i class="fa-solid fa-circle-heart"></i>
-										{{	post.usersLike | length }}
+										<a class="btn p-0" href="{{path('home.unlike', {id: post.id})}}">
+											<i class="fa-solid fa-circle-heart"></i>
+											{{	post.usersLike | length }}
+										</a>
 									</p>
 								{% else %}
 									<p class="card-text">
-										<i class="fa-light fa-circle-heart"></i>
-										{{	post.usersLike | length }}
+										<a class="btn p-0" href="{{path('home.like', {id: post.id})}}">
+											<i class="fa-light fa-circle-heart"></i>
+											{{	post.usersLike | length }}
+										</a>
 									</p>
 								{% endif %}
 							</div>

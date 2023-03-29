@@ -13,7 +13,7 @@ const Comment = ({comments, currentuser}) => {
           <div key={com.id} className="card mb-3">
             <div className="row g-0">
               <div className="col-1 ps-3 pt-2">
-                <img src={'img/' + com.user.img} className="profileNavbarImg" alt="utilisateur" />
+                <img src={com.user.img} className="profileNavbarImg" alt="uti" />
               </div>
               <div className="col-11 px-2 d-flex">
                 <div className="card-body">

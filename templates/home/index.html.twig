@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="row mt-3">
 		<div class="col-3">
-			<img src="{{asset('img/' ~ app.user.img)}}" alt="" class="w-100 rounded-circle border border-white border-3">
+			<img src="{{asset( app.user.img)}}" alt="" class="w-100 rounded-circle border border-white border-3">
 			<h2 class="text-center">Bonjour
 				{{app.user.name}}, Comment vas-tu ?</h2>
 		</div>
@@ -15,7 +15,7 @@
 				<div class="card mb-3">
 					<div class="row g-0">
 						<div class="col-1 ps-3 pt-2">
-							<img src="{{asset('img/' ~ post.user.img)}}" class="profileNavbarImg" alt="...">
+							<img src="{{asset( post.user.img)}}" class="profileNavbarImg" alt="...">
 						</div>
 						<div class="col-11 px-2 d-flex">
 							<div class="card-body pb-1">

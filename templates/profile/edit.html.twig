@@ -9,7 +9,7 @@
 	<div class="row mt-3">
 		<div class="col-5 col-md-3">
 			<div class="card">
-				<img src="{{asset('img/' ~ app.user.img)}}" alt="" class="w-100">
+				<img src="{{asset(app.user.img)}}" alt="" class="w-100">
 				<div class="card-body">
 					<h5 class="card-title">{{user.name}}</h5>
 					{% if user.birthday %}

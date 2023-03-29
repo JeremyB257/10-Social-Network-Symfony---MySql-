@@ -11,7 +11,7 @@
 
 			<div class="col">
 				<div class="card h-100 text-center">
-					<img src="{{asset('img/' ~ user.img)}}" class="card-img-top h-100 object-fit-cover" alt="utilisateur">
+					<img src="{{asset(user.img)}}" class="card-img-top h-100 object-fit-cover" alt="utilisateur">
 					<div class="card-body">
 						<h5 class="card-title">
 							<a href="{{path('profile.index', {id: user.id})}}">{{user.name}}</a>

@@ -33,7 +33,7 @@ class ProfileController extends AbstractController
 
             return $this->redirectToRoute('profile.index', ['id' => $currentUser->getId()]);
         }
-        $limit = (int) $request->get('limit') | 10;
+        $limit = (int) ($request->get('limit') ?? 10);
 
         return $this->render('profile/index.html.twig', [
             'posts' => $postRepo->findBy(['user' => $currentUser], ['createdAt' => 'DESC'], $limit),

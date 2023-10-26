@@ -18,7 +18,7 @@ class HomeController extends AbstractController
     public function index(PostRepository $postRepo, Request $request): Response
     {
 
-        $limit = (int) $request->get('limit') | 10;
+        $limit = (int) ($request->get('limit') ?? 10);
         $posts = $postRepo->findBy([], ['createdAt' => 'DESC'], $limit);
 
         return $this->render('home/index.html.twig', [
